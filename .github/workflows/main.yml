@@ -1,0 +1,32 @@
+name: Dapp test-action deployment
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+ # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+  SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      
+jobs:
+  Test: 
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: test project
+      run: yarn test
+    
+    - name: Notification
+      uses: 8398a7/action-slack@v3
+      with:
+       status: ${{ job.status }}
+       fields: repo,message,commit,author,action,eventName,ref,workflow,job,took,pullRequest
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    permissions:
+      contents: read
+      actions: read
