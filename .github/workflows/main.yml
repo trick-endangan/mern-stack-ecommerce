@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: test project
+    - name: test project1
       run: yarn test
     
     - name: Notification
