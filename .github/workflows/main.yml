@@ -18,7 +18,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: test project123
-      run: npm install
+      run: hello
     
     - name: Notification
       uses: 8398a7/action-slack@v3
